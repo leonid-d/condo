@@ -163,8 +163,6 @@ const TicketsPage = () => {
         sortBy: router.query.sort,
         offset: Number(router.query.offset),
         limit: PAGINATION_PAGE_SIZE,
-    }, { 
-        fetchPolicy: 'network-only',
     })
 
     const { pagination, sorter } = tableStateFromQuery(router)
@@ -195,7 +193,7 @@ const TicketsPage = () => {
                 router.push(router.route + '?' + qs.stringify({ ...router.query, sort, offset }))
             })
         }
-    }, [loading])
+    }, [])
 
     const tableColumns = useMemo(() => getTableColumns(sorter, intl), [sorter])
 

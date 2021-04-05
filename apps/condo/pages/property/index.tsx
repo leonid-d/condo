@@ -128,9 +128,7 @@ function PropertyCRUDListBlock () {
     const modal = useCreateAndEditModalForm()
     const table = useTable()
 
-    const { objs, count, refetch, loading } = Property.useObjects({}, { 
-        fetchPolicy: 'network-only',
-    })
+    const { objs, count, refetch, loading } = Property.useObjects()
     const create = Property.useCreate({ organization: organization.id, map: buildingMapJson }, () => refetch())
 
     useEffect(() => {
@@ -138,7 +136,7 @@ function PropertyCRUDListBlock () {
             table.setData(objs)
             table.updateFilterPaginationSort({ total: count })
         }
-    }, [loading])
+    }, [objs])
 
     return (
         <>

@@ -169,15 +169,13 @@ function EmployeeCRUDTableBlock () {
         skip: (table.state.pagination.current - 1) * table.state.pagination.pageSize,
         sortBy: toGQLSortBy(table.state.sorter),
         where: { ...toGQLWhere(table.state.filters), organization: { id: organization.id } },
-    }, {
-        fetchPolicy: 'network-only',
     })
     const invite = useInviteNewOrganizationEmployee({ organization: { id: organization.id } }, refetch)
     const update = OrganizationEmployee.useUpdate({}, refetch)
     const del = OrganizationEmployee.useDelete({}, refetch)
 
     function handleCreateOrUpdate ({ values, item, form }) {
-        // console.log('handleCreateOrUpdate', values, item, form)
+        console.log('handleCreateOrUpdate', values, item, form)
         if (values.email) values.email = values.email.toLowerCase()
         const action = (item && item.isUnsavedNew) ? invite : update
         return runMutation(
@@ -198,7 +196,7 @@ function EmployeeCRUDTableBlock () {
     }
 
     function handleDelete ({ values, item, form }) {
-        // console.log('handleDelete', values, item, form)
+        console.log('handleDelete', values, item, form)
         return runMutation(
             {
                 action: () => del(item),
@@ -230,7 +228,7 @@ function EmployeeCRUDTableBlock () {
             newDataTable.updateActions(actions)
             table.updateActions(actions)
         }
-    }, [loading])
+    }, [objs])
 
     const createColumns = useMemo(() => {return columns}, [])
     const editColumns = useMemo(() => {return columns}, [])
